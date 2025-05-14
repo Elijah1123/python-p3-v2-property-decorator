@@ -12,7 +12,7 @@ APPROVED_BREEDS = [
 
 class Dog:
     def __init__(self, name='Fido', breed='Mastiff'):
-        # Use the setter methods to assign values
+        
         self.name = name
         self.breed = breed
 
