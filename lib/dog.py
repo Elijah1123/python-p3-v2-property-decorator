@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 APPROVED_BREEDS = [
     "Mastiff",
     "Chihuahua",
@@ -9,31 +11,55 @@ APPROVED_BREEDS = [
     "Pointer"
 ]
 
+    # lib/dog.py
+
+# lib/dog.py
 
 class Dog:
-    def __init__(self, name='Fido', breed='Mastiff'):
-        
+    approved_breeds = ["Mastiff", "Chihuahua", "Corgi", "Shar Pei", "Beagle", "French Bulldog", "Pug", "Pointer"]
+
+    def __init__(self, name="", breed=""):
+        self._name = None
+        self._breed = None
         self.name = name
-        self.breed = breed
+        # Only attempt to set breed if name is valid
+        if self._name is not None:
+            self.breed = breed
 
     @property
     def name(self):
         return self._name
 
     @name.setter
-    def name(self, name):
-        if isinstance(name, str) and 1 <= len(name) <= 25:
-            self._name = name.title()
+    def name(self, value):
+        if not isinstance(value, str) or not (1 <= len(value) <= 25):
+            print("Name must be string between 1 and 25 characters.")
+            self._name = None
         else:
-            raise ValueError("Name must be a string between 1 and 25 characters.")
+            self._name = value
 
     @property
     def breed(self):
         return self._breed
 
     @breed.setter
-    def breed(self, breed):
-        if breed in APPROVED_BREEDS:
-            self._breed = breed
+    def breed(self, value):
+        if value not in self.approved_breeds:
+            print("Breed must be in list of approved breeds.")
+            self._breed = None
         else:
-            raise ValueError("Breed must be in the list of approved breeds.")
+            self._breed = value
+
+if __name__ == "__main__":
+    dog1 = Dog("Buddy", "Beagle")
+    print("Dog1:", dog1.name, dog1.breed)
+
+    dog2 = Dog("", "Mastiff")
+    print("Dog2:", dog2.name, dog2.breed)
+
+    dog3 = Dog("Charlie", "AlienDog")
+    print("Dog3:", dog3.name, dog3.breed)   
+
+    dog4 = Dog("Luna", "Corgi")
+    print("Dog 4:", dog4.name, dog4.breed)      
+
